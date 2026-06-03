@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# JAX / ML artifacts
+*.npz
+*.npy
+*.ckpt
+checkpoints/
+*.log
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
