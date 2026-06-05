@@ -1,6 +1,10 @@
-# Frontier AI Lab Prep
+# 10M-Parameter MoE Transformer: Training, Scaling, and Kernel Fusion
 
-Roadmap based on Vlad Feinberg's advice: https://vladfeinberg.com/2026/05/10/how-to-land-a-job-at-a-frontier-lab.html
+A from-scratch Mixture-of-Experts transformer in JAX (~10M params), trained end-to-end, with a
+custom Pallas kernel that fuses the MoE hot path for a measurable speedup.
+
+Built as a four-step portfolio, following the strategy in Vlad Feinberg's "How to land a job at a
+frontier lab": https://vladfeinberg.com/2026/05/10/how-to-land-a-job-at-a-frontier-lab.html
 
 ## Core thesis
 Demonstrated skills beat credentials. Three traits predict success: **intent**, **mathematical maturity**, **grit**.
@@ -19,11 +23,16 @@ Work through the official JAX tutorials and exercises. Goal: comfort with `jit`,
 ### 2. Scaling book → `02-scaling-book/`
 Work through "How to Scale Your Model" (Google DeepMind's scaling book) with hands-on problems. Goal: internalize the math of compute/memory/communication tradeoffs at scale.
 
-### 3. 10M parameter transformer → `03-transformer-10m/`
-Build a ~10M parameter transformer **from scratch** in JAX. Train it end-to-end. Goal: prove you understand the full stack — tokenization, attention, optimizer, training loop, eval.
+### 3. 10M-parameter MoE transformer → `03-transformer-10m/`
+Build a ~10M parameter **Mixture-of-Experts** transformer **from scratch** in JAX and train it
+end-to-end. Beyond a dense transformer this adds the pieces real frontier models use: a routing
+network (top-k gating), expert dispatch/combine, and an auxiliary load-balancing loss. Goal: prove
+you understand the full stack — tokenization, attention, MoE routing, optimizer, training loop, eval.
 
-### 4. Custom kernel → `04-custom-kernel/`
-Write a custom kernel (Pallas, Triton, or CUDA) demonstrating **measurable speedups** over a baseline. Goal: prove you can move below the framework and reason about hardware.
+### 4. Custom Pallas kernel — MoE fusion → `04-custom-kernel/`
+Write a custom **Pallas** kernel that fuses the MoE hot path (gating → dispatch → expert matmul →
+combine) and demonstrate a **measurable speedup** over the step-3 baseline. Goal: prove you can move
+below the framework, reason about memory traffic and the roofline, and actually make it faster.
 
 ## Output
 Each subdirectory should contain working code + a short writeup of what was learned and what was measured. The point is a documented portfolio, not just exercises completed.
