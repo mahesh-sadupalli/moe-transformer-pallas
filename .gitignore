@@ -24,3 +24,7 @@ checkpoints/
 # Datasets
 data/
 runs/
+
+# Local-only files
+CLAUDE.md
+*.pptx
